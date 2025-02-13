@@ -36,29 +36,11 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 repositories {
     mavenCentral()
-    final def GithubPackages = [
-        ["fnuecke/ceres", "li.cil.ceres"],
-        ["fnuecke/sedna", "li.cil.sedna"],
-        ["fnuecke/buildroot", "li.cil.sedna"]
-    ]
-    GithubPackages.each { final repo, final group ->
-        maven {
-            url = uri("https://maven.pkg.github.com/${repo}")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GPR_USER")
-                password = project.findProperty("gpr.key") ?: System.getenv("GPR_KEY")
-            }
-            content { includeGroup group }
-        }
-    }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation('li.cil.ceres:ceres:0.0.4') { transitive = false }
-    implementation('li.cil.sedna:sedna:2.0.9') { transitive = false }
-    implementation('li.cil.sedna:sedna-buildroot:0.0.8') { transitive = false }
 }
 
 minecraft {
